@@ -1,14 +1,23 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import HeroSlider from "@/components/ui/HeroSlider";
 import MobileSearchBar from "@/components/ui/MobileSearchBar";
 import CategoryScroll from "@/components/ui/CategoryScroll";
 import MobileTabBar from "@/components/ui/MobileTabBar";
 
+// Produkttyp
+type Product = {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+};
+
 export default function HomePage() {
-  const products = [
+  const products: Product[] = [
     {
       id: 1,
       name: "Blå T-shirt",
@@ -42,7 +51,7 @@ export default function HomePage() {
       name: "Mascara",
       description: "Volymgivande mascara för dramatiska ögonfransar",
       image:
-        "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=400&q=80",
+        "https://cdn.pixabay.com/photo/2016/11/23/18/12/bag-1854148_1280.jpg",
     },
     {
       id: 6,
@@ -87,13 +96,13 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 relative">
-      {/* Mobil Üst Menü: Arama ve Kategori */}
+      {/* Mobil övre meny: sök och kategorier */}
       <div className="md:hidden sticky top-0 z-40 bg-white">
         <MobileSearchBar />
         <CategoryScroll />
       </div>
 
-      {/* Ana İçerik */}
+      {/* Huvudinnehåll */}
       <main className="container mx-auto px-4 py-8 pb-28 flex-1">
         <HeroSlider />
 
@@ -106,9 +115,12 @@ export default function HomePage() {
               key={id}
               className="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col"
             >
-              <img
+              {/* Produktbild */}
+              <Image
                 src={image}
                 alt={name}
+                width={400}
+                height={160}
                 className="w-full h-40 object-cover rounded-xl mb-4"
               />
               <h3 className="font-medium text-gray-900 mb-1">{name}</h3>
@@ -123,7 +135,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Mobil Alt Menü */}
+      {/* Mobil nedre meny */}
       <div className="md:hidden fixed bottom-0 left-0 w-full z-50">
         <MobileTabBar />
       </div>
@@ -131,7 +143,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-white border-t mt-12 hidden md:block">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} AgnesNora. All rights reserved.
+          © {new Date().getFullYear()} AgnesNora. Alla rättigheter förbehållna.
         </div>
       </footer>
     </div>
