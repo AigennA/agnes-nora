@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 const slides = [
   {
@@ -22,7 +23,6 @@ const slides = [
     title: "Ny teknik i butiken",
     subtitle: "Senaste prylarna till bästa pris",
   },
-  
 ];
 
 export default function HeroSlider() {
@@ -39,10 +39,11 @@ export default function HeroSlider() {
 
   return (
     <div className="relative w-full h-64 md:h-96 overflow-hidden rounded-xl shadow-lg">
-      <img
+      <Image
         src={image}
         alt={title}
-        className="w-full h-full object-cover transition-opacity duration-1000"
+        fill
+        className="object-cover transition-opacity duration-1000"
       />
       <div className="absolute bottom-10 left-10 text-white bg-black bg-opacity-50 p-4 rounded">
         <h2 className="text-3xl font-bold">{title}</h2>
