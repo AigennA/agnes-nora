@@ -1,42 +1,42 @@
 import { useState } from "react";
 
 function ProductControl() {
-  // Ürünleri tutan state (id, name, description, price)
+  // Produktlista (id, namn, beskrivning, pris)
   const [products, setProducts] = useState([
-    { id: 1, name: "Ürün 1", description: "Açıklama 1", price: 100 },
-    { id: 2, name: "Ürün 2", description: "Açıklama 2", price: 200 },
+    { id: 1, name: "Produkt 1", description: "Beskrivning", price: 100 },
+    { id: 2, name: "Produkt 2", description: "Beskrivning 2", price: 200 },
   ]);
 
-  // Yeni ürün formu için state
+  // Ny produktformulärsstatus
   const [newProduct, setNewProduct] = useState({
     name: "",
     description: "",
     price: "",
   });
 
-  // Form inputları değiştiğinde güncelle
+  // Uppdatera när input ändras
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewProduct((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Yeni ürün ekle
+  // Lägg till ny produkt
   const addProduct = () => {
     if (!newProduct.name || !newProduct.price) {
-      alert("Lütfen isim ve fiyat girin");
+      alert("Skriv namn och pris");
       return;
     }
     const newId = products.length ? products[products.length - 1].id + 1 : 1;
     setProducts([...products, { ...newProduct, id: newId, price: Number(newProduct.price) }]);
-    setNewProduct({ name: "", description: "", price: "" }); // formu temizle
+    setNewProduct({ name: "", description: "", price: "" }); // rensa formuläret
   };
 
-  // Ürün sil
+  // Ta bort produkt
   const deleteProduct = (id) => {
     setProducts(products.filter((p) => p.id !== id));
   };
 
-  // Ürün açıklamasını düzenle (örnek: sadece açıklamayı değiştir)
+  // Uppdatera produktens beskrivning
   const updateDescription = (id, newDesc) => {
     setProducts(
       products.map((p) =>
@@ -47,14 +47,14 @@ function ProductControl() {
 
   return (
     <div style={{ maxWidth: 600, margin: "0 auto" }}>
-      <h2>Product Control Panel</h2>
+      <h2>Produktkontrollpanel</h2>
 
-      {/* Yeni Ürün Formu */}
+      {/* Ny produktformulär */}
       <div style={{ marginBottom: 20, padding: 10, border: "1px solid #ccc" }}>
-        <h3>Add New Product</h3>
+        <h3>Lägg till ny produkt</h3>
         <input
           name="name"
-          placeholder="Product Name"
+          placeholder="Produktnamn"
           value={newProduct.name}
           onChange={handleChange}
           style={{ marginRight: 8 }}
@@ -62,22 +62,22 @@ function ProductControl() {
         <input
           name="price"
           type="number"
-          placeholder="Price"
+          placeholder="Pris"
           value={newProduct.price}
           onChange={handleChange}
           style={{ marginRight: 8, width: 80 }}
         />
         <input
           name="description"
-          placeholder="Description"
+          placeholder="Beskrivning"
           value={newProduct.description}
           onChange={handleChange}
           style={{ marginRight: 8 }}
         />
-        <button onClick={addProduct}>Add Product</button>
+        <button onClick={addProduct}>Lägg till produkt</button>
       </div>
 
-      {/* Ürün Listesi */}
+      {/* Produktlista */}
       <div>
         {products.map(({ id, name, description, price }) => (
           <div
@@ -101,9 +101,9 @@ function ProductControl() {
             </div>
 
             <div style={{ display: "flex", gap: 10 }}>
-              <button onClick={() => alert(`Buy ${name} clicked!`)}>Buy</button>
+              <button onClick={() => alert(`Köp av ${name} klickad!`)}>Köp</button>
               <button onClick={() => deleteProduct(id)} style={{ color: "red" }}>
-                Delete
+                Ta bort
               </button>
             </div>
           </div>
@@ -113,7 +113,7 @@ function ProductControl() {
   );
 }
 
-// Açıklamayı düzenlenebilir yapmak için küçük bir component
+// Gör beskrivningen redigerbar (liten komponent)
 function EditableDescription({ description, onChange }) {
   const [editMode, setEditMode] = useState(false);
   const [text, setText] = useState(description);
@@ -132,12 +132,12 @@ function EditableDescription({ description, onChange }) {
         style={{ width: "100%" }}
       />
       <button onClick={save} style={{ marginTop: 4 }}>
-        Save
+        Spara
       </button>
     </div>
   ) : (
     <p onClick={() => setEditMode(true)} style={{ cursor: "pointer" }}>
-      {description || <em>Click to add description</em>}
+      {description || <em>Klicka för att lägga till beskrivning</em>}
     </p>
   );
 }
